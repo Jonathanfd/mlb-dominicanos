@@ -1,0 +1,238 @@
+.game-card {
+    padding: 0;
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.game-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Status Bar */
+.game-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.dominican-count {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: rgba(0, 45, 98, 0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(0, 45, 98, 0.2);
+}
+
+/* Teams Container */
+.teams-container {
+    padding: var(--spacing-md);
+}
+
+.team-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) 0;
+    transition: all var(--transition-fast);
+}
+
+.team-row:first-child {
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.team-row.winner .team-name,
+.team-row.winner .team-score {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.team-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.team-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.team-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.team-record {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.team-score {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    min-width: 50px;
+    text-align: right;
+}
+
+/* Line Score */
+.linescore-container {
+    padding: 0 var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    overflow-x: auto;
+}
+
+.linescore {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    /* Increased size */
+    width: 100%;
+    /* Take full width */
+}
+
+.linescore-header,
+.linescore-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    /* Distribute space */
+    padding: 4px 0;
+}
+
+.linescore-header span,
+.linescore-row span {
+    flex: 1;
+    /* Distribute space evenly */
+    text-align: center;
+    padding: 4px;
+}
+
+/* First column - team abbreviation or empty space */
+.linescore-header span:first-child,
+.linescore-row span:first-child {
+    width: 40px;
+    text-align: left;
+}
+
+.linescore-header {
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.linescore-team {
+    width: 40px !important;
+    text-align: left !important;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.linescore-row span {
+    color: var(--text-muted);
+}
+
+.linescore-total {
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.inning-num {
+    font-weight: 600;
+}
+
+/* Dominican Section */
+.dominican-section {
+    border-top: 1px solid var(--glass-border);
+    background: rgba(0, 45, 98, 0.1);
+}
+
+.section-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.section-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.toggle-icon {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: transform var(--transition-fast);
+}
+
+/* Players List */
+.players-list {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.team-players {
+    margin-bottom: var(--spacing-md);
+}
+
+.team-players:last-child {
+    margin-bottom: 0;
+}
+
+.team-players-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.mini-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .team-logo {
+        width: 32px;
+        height: 32px;
+    }
+
+    .team-name {
+        font-size: 1rem;
+    }
+
+    .team-score {
+        font-size: 1.5rem;
+    }
+}

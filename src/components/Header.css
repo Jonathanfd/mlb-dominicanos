@@ -1,0 +1,256 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(to right, #002D62, #041E42);
+    /* Deep Navy Gradient */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    color: white;
+    height: 70px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-md);
+    height: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* Redesigned Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.logo:hover {
+    opacity: 0.9;
+}
+
+/* Baseball Icon Container */
+.logo-icon-container {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.baseball-body {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #e0e0e0;
+}
+
+/* Baseball Stitches */
+.stitch-curve-left,
+.stitch-curve-right {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border: 2px dashed #ce1126;
+    /* MLB Red Stitches */
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.stitch-curve-left {
+    left: -18px;
+}
+
+.stitch-curve-right {
+    right: -18px;
+}
+
+/* Centered Dominican Flag */
+.center-flag {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 18px;
+    background: white;
+    /* Cross color */
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.flag-top-left,
+.flag-top-right,
+.flag-bottom-left,
+.flag-bottom-right {
+    width: 10px;
+    height: 7px;
+    position: absolute;
+}
+
+/* DR Flag Colors: Blue: #002D62, Red: #CE1126 */
+.flag-top-left {
+    top: 0;
+    left: 0;
+    background: #002D62;
+}
+
+.flag-top-right {
+    top: 0;
+    right: 0;
+    background: #ce1126;
+}
+
+.flag-bottom-left {
+    bottom: 0;
+    left: 0;
+    background: #ce1126;
+}
+
+.flag-bottom-right {
+    bottom: 0;
+    right: 0;
+    background: #002D62;
+}
+
+/* White Cross is formed by the gaps and the background of the container, 
+   but let's be explicit to ensure it cuts through properly */
+.flag-cross-h {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    /* Thickness of cross */
+    background: white;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.flag-cross-v {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    /* Thickness of cross */
+    background: white;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+/* Tiny Shield in center (Coat of Arms approximation) */
+.flag-shield {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 5px;
+    background: #222;
+    /* Simplified shield/colors */
+    z-index: 2;
+    border-radius: 1px;
+}
+
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 16px;
+}
+
+.logo-brand {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #fff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-tagline {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #a5c0e0;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-top: 4px;
+}
+
+/* Header Right - Live Badge */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.live-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--mlb-red);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(206, 17, 38, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px white;
+    animation: pulse 1.5s infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        height: 60px;
+    }
+
+    .logo-brand {
+        font-size: 1.1rem;
+    }
+
+    .logo-tagline {
+        font-size: 0.55rem;
+        letter-spacing: 1.5px;
+    }
+
+    .logo-icon-container {
+        width: 40px;
+        height: 40px;
+    }
+
+    .live-badge {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+
+    .header-content {
+        padding: 0 var(--spacing-sm);
+        /* Reduce padding */
+    }
+}
