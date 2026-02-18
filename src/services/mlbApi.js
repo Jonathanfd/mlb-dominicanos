@@ -1,7 +1,7 @@
 // MLB Stats API Service
-// Using Vite proxy to bypass CORS restrictions
+// Direct API calls — MLB Stats API is public and CORS-friendly
 
-const BASE_URL = '/mlb-api/api/v1';
+const BASE_URL = 'https://statsapi.mlb.com/api/v1';
 
 // Get schedule for a specific date with full boxscore data
 export async function getSchedule(date) {
