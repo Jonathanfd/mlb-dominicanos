@@ -3,6 +3,8 @@ import "./App.css";
 import Header from "./components/Header";
 import GameCard from "./components/GameCard";
 import DatePicker from "./components/DatePicker";
+import TabNavigation from "./components/TabNavigation";
+import BettingTab from "./components/BettingTab";
 import {
   getSchedule,
   getBoxScore,
@@ -16,6 +18,7 @@ function App() {
   const [gamesWithPlayers, setGamesWithPlayers] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('dominicanos');
 
   // Fetch games for selected date
   const fetchGames = useCallback(async (isBackgroundRefresh = false) => {
@@ -89,6 +92,7 @@ function App() {
   return (
     <div className="app">
       <Header />
+      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
 
       <main className="main-content">
         <div className="container">
@@ -96,10 +100,14 @@ function App() {
             <div className="title-section">
               <h2 className="page-title">
                 <span className="dr-flag"></span>
-                Peloteros Dominicanos
+                {activeTab === 'dominicanos'
+                  ? 'Peloteros Dominicanos'
+                  : 'Líneas de Apuestas'}
               </h2>
               <p className="page-subtitle">
-                Sigue el rendimiento de los dominicanos en la MLB
+                {activeTab === 'dominicanos'
+                  ? 'Sigue el rendimiento de los dominicanos en la MLB'
+                  : 'Odds en vivo y recomendaciones de parlays'}
               </p>
             </div>
 
@@ -109,48 +117,56 @@ function App() {
             />
           </div>
 
-          {loading ? (
-            <div className="games-grid">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="game-card-skeleton glass-card">
-                  <div className="skeleton skeleton-header"></div>
-                  <div className="skeleton skeleton-teams"></div>
-                  <div className="skeleton skeleton-players"></div>
+          {activeTab === 'dominicanos' ? (
+            /* Dominican Players Tab */
+            <>
+              {loading ? (
+                <div className="games-grid">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="game-card-skeleton glass-card">
+                      <div className="skeleton skeleton-header"></div>
+                      <div className="skeleton skeleton-teams"></div>
+                      <div className="skeleton skeleton-players"></div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          ) : error ? (
-            <div className="error-state glass-card animate-fadeIn">
-              <div className="error-icon">⚠️</div>
-              <h3>Error</h3>
-              <p>{error}</p>
-              <button className="btn btn-primary" onClick={fetchGames}>
-                Reintentar
-              </button>
-            </div>
-          ) : gamesWithDominicanPlayers.length === 0 ? (
-            <div className="empty-state glass-card animate-fadeIn">
-              <div className="empty-icon">⚾</div>
-              <h3>No hay juegos con dominicanos</h3>
-              <p>
-                No se encontraron juegos con peloteros dominicanos para esta
-                fecha.
-              </p>
-              <p className="empty-hint">Intenta seleccionar otra fecha</p>
-            </div>
+              ) : error ? (
+                <div className="error-state glass-card animate-fadeIn">
+                  <div className="error-icon">⚠️</div>
+                  <h3>Error</h3>
+                  <p>{error}</p>
+                  <button className="btn btn-primary" onClick={fetchGames}>
+                    Reintentar
+                  </button>
+                </div>
+              ) : gamesWithDominicanPlayers.length === 0 ? (
+                <div className="empty-state glass-card animate-fadeIn">
+                  <div className="empty-icon">⚾</div>
+                  <h3>No hay juegos con dominicanos</h3>
+                  <p>
+                    No se encontraron juegos con peloteros dominicanos para esta
+                    fecha.
+                  </p>
+                  <p className="empty-hint">Intenta seleccionar otra fecha</p>
+                </div>
+              ) : (
+                <div className="games-grid">
+                  {gamesWithDominicanPlayers.map((game, index) => (
+                    <GameCard
+                      key={game.gamePk}
+                      game={game}
+                      dominicanPlayers={
+                        gamesWithPlayers[game.gamePk] || { home: [], away: [] }
+                      }
+                      animationDelay={index * 0.1}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           ) : (
-            <div className="games-grid">
-              {gamesWithDominicanPlayers.map((game, index) => (
-                <GameCard
-                  key={game.gamePk}
-                  game={game}
-                  dominicanPlayers={
-                    gamesWithPlayers[game.gamePk] || { home: [], away: [] }
-                  }
-                  animationDelay={index * 0.1}
-                />
-              ))}
-            </div>
+            /* Betting Tab */
+            <BettingTab games={games} selectedDate={selectedDate} />
           )}
         </div>
       </main>

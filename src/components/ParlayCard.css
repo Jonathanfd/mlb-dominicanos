@@ -1,0 +1,257 @@
+.parlay-card {
+    padding: 0;
+    overflow: hidden;
+    border-left: 4px solid var(--dr-blue);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.parlay-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.parlay-pick-del-día {
+    border-left-color: #FFD700;
+}
+
+.parlay-tripleta {
+    border-left-color: #4CAF50;
+}
+
+.parlay-cuarteta {
+    border-left-color: #FF6B35;
+}
+
+.parlay-quinteta {
+    border-left-color: #9C27B0;
+}
+
+.parlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--bg-header);
+    color: var(--text-inverse);
+}
+
+.parlay-type {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.parlay-emoji {
+    font-size: 1.5rem;
+}
+
+.parlay-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.parlay-payout {
+    text-align: right;
+}
+
+.payout-label {
+    display: block;
+    font-size: 0.65rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.payout-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #4ADE80;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.parlay-description {
+    margin: 0;
+    padding: 12px 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.parlay-picks {
+    padding: 8px 20px 4px;
+}
+
+.parlay-pick {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--bg-tertiary);
+}
+
+.parlay-pick:last-child {
+    border-bottom: none;
+}
+
+.pick-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.pick-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--dr-blue);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.pick-team {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.pick-confidence {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+.confidence-alta {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.confidence-media {
+    background: #FFF3E0;
+    color: #E65100;
+}
+
+.confidence-baja {
+    background: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.pick-details {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 34px;
+    margin-bottom: 4px;
+}
+
+.pick-matchup {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.pick-odds {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--dr-blue);
+    background: rgba(0, 45, 98, 0.08);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.pick-reasons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-left: 34px;
+    margin-top: 4px;
+}
+
+.pick-reason {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.parlay-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--bg-tertiary);
+}
+
+.risk-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.risk-bajo {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.risk-moderado {
+    background: #FFF3E0;
+    color: #E65100;
+}
+
+.risk-alto {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.risk-muy-alto {
+    background: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.parlay-confidence {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .parlay-header {
+        padding: 12px 14px;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .parlay-payout {
+        text-align: left;
+    }
+
+    .payout-value {
+        font-size: 1.2rem;
+    }
+
+    .parlay-picks {
+        padding: 8px 14px 4px;
+    }
+
+    .parlay-description {
+        padding: 10px 14px;
+    }
+
+    .parlay-footer {
+        padding: 10px 14px;
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+    }
+}
