@@ -95,7 +95,7 @@
     font-size: 0.88rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
     background: transparent;
     color: var(--text-secondary);
     font-family: var(--font-body);

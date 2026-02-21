@@ -1,0 +1,418 @@
+/* ========================================
+   Player Profile Modal
+   ======================================== */
+
+/* Overlay */
+.player-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: modalFadeIn 0.2s ease-out;
+    padding: 16px;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal Card */
+.player-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    position: relative;
+    animation: modalScaleIn 0.25s ease-out;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    -webkit-overflow-scrolling: touch;
+}
+
+@keyframes modalScaleIn {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* Close Button */
+.player-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.4);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.player-modal-close:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* ========================================
+   Header Banner
+   ======================================== */
+.player-modal-header {
+    background: linear-gradient(135deg, #002D62 0%, #0A1929 60%, #1a0a0a 100%);
+    padding: 24px 20px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.player-headshot-container {
+    flex-shrink: 0;
+}
+
+.player-headshot {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.player-headshot-fallback {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--dr-red), #8B0000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 800;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.player-header-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.player-modal-name {
+    color: white;
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin: 0 0 4px;
+    line-height: 1.2;
+    text-wrap: balance;
+}
+
+.player-number {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 6px;
+}
+
+.player-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.82rem;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.player-pos-badge {
+    background: var(--dr-red);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.player-country-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================
+   Stats Section
+   ======================================== */
+.player-modal-body {
+    padding: 16px 16px 24px;
+}
+
+.stats-section {
+    margin-bottom: 16px;
+}
+
+.stats-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #002D62;
+    margin: 0 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #002D62;
+}
+
+.stats-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -4px;
+    padding: 0 4px;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.stats-table thead th {
+    background: #f5f5f5;
+    color: #666;
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 8px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.stats-table thead th:first-child {
+    text-align: left;
+    min-width: 60px;
+}
+
+.stats-table tbody td {
+    padding: 8px;
+    text-align: center;
+    color: #333;
+    font-weight: 500;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stats-table tbody td:first-child {
+    text-align: left;
+}
+
+.stats-label {
+    font-weight: 700 !important;
+    color: #002D62 !important;
+    font-size: 0.78rem;
+}
+
+.stat-highlight {
+    font-weight: 700 !important;
+    color: var(--dr-red) !important;
+}
+
+.career-row td {
+    background: #fafafa;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* ========================================
+   Bio Section
+   ======================================== */
+.player-bio {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 4px;
+}
+
+.bio-item {
+    display: flex;
+    gap: 8px;
+    padding: 5px 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #eee;
+}
+
+.bio-item:last-child {
+    border-bottom: none;
+}
+
+.bio-label {
+    color: #888;
+    font-weight: 600;
+    min-width: 72px;
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.bio-value {
+    color: #333;
+    font-weight: 500;
+}
+
+/* ========================================
+   Loading Skeleton
+   ======================================== */
+.player-modal-loading {
+    padding: 24px 20px;
+}
+
+.modal-skeleton-header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+}
+
+.skeleton-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.skeleton-text-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skeleton-line-lg {
+    height: 24px;
+    width: 70%;
+}
+
+.skeleton-line-sm {
+    height: 16px;
+    width: 50%;
+}
+
+.skeleton-table {
+    height: 80px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ========================================
+   Error State
+   ======================================== */
+.player-modal-error {
+    padding: 48px 24px;
+    text-align: center;
+    color: #666;
+}
+
+.player-modal-error button {
+    margin-top: 12px;
+    padding: 8px 24px;
+    background: #002D62;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* ========================================
+   Desktop: Larger Card
+   ======================================== */
+@media (min-width: 600px) {
+    .player-modal-overlay {
+        padding: 24px;
+    }
+
+    .player-modal {
+        max-width: 560px;
+    }
+
+    .player-headshot,
+    .player-headshot-fallback {
+        width: 120px;
+        height: 120px;
+    }
+
+    .player-modal-name {
+        font-size: 1.5rem;
+    }
+
+    .stats-table {
+        font-size: 0.88rem;
+    }
+
+    .stats-table thead th {
+        font-size: 0.76rem;
+        padding: 8px 10px;
+    }
+
+    .stats-table tbody td {
+        padding: 10px;
+    }
+}
+
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .player-modal,
+    .player-modal-overlay {
+        animation: none !important;
+    }
+}

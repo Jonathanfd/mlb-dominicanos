@@ -90,7 +90,7 @@
     font-size: 0.95rem;
     cursor: pointer;
     color: var(--text-primary);
-    transition: all 0.2s;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .calendar-day:hover:not(.empty) {
@@ -131,7 +131,7 @@
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .footer-btn.clear {

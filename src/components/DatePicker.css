@@ -51,7 +51,7 @@
     border-radius: 6px;
     cursor: pointer;
     min-width: 48px;
-    transition: all 0.2s;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
 }
 
 .date-item:hover {
@@ -66,6 +66,31 @@
 .date-item.selected .day-name,
 .date-item.selected .day-number {
     color: white;
+}
+
+/* Today indicator */
+.date-item.today:not(.selected) {
+    border: 2px solid var(--mlb-blue, #002D62);
+    background: rgba(0, 45, 98, 0.05);
+}
+
+.date-item.today .day-name {
+    font-weight: 700;
+    color: var(--mlb-blue, #002D62);
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+}
+
+.date-item.today.selected .day-name {
+    color: white;
+}
+
+.today-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--mlb-blue, #002D62);
+    border-radius: 50%;
+    margin-top: 2px;
 }
 
 .day-name {

@@ -18,7 +18,7 @@
   font-weight: 600;
   cursor: pointer;
   border-bottom: 3px solid transparent;
-  transition: all 0.25s ease;
+  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
   position: relative;
   font-family: var(--font-body);
 }
@@ -47,6 +47,7 @@
     padding: 0 12px;
     justify-content: center;
   }
+
   .tab-btn {
     padding: 12px 20px;
     flex: 1;

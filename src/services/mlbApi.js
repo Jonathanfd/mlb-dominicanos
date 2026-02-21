@@ -90,12 +90,11 @@ export function extractDominicanPlayers(boxscore) {
       const position = player.position || {};
       const playerName = person.fullName || '';
 
-      // Check if player is Dominican by birthCountry or by known players list
+      // Check if player is Dominican by birthCountry from MLB API
       const isDominican =
         person.birthCountry === 'Dominican Republic' ||
         person.birthCountry === 'D.R.' ||
-        person.birthCountry === 'Republica Dominicana' ||
-        KNOWN_DOMINICAN_PLAYERS.has(playerName);
+        person.birthCountry === 'Republica Dominicana';
 
       if (isDominican) {
         const battingStats = stats.batting || {};
@@ -190,38 +189,22 @@ export function formatGameStatus(game) {
   }
 }
 
-// Comprehensive list of known Dominican MLB players (for fallback when API doesn't return birthCountry)
-export const KNOWN_DOMINICAN_PLAYERS = new Set([
-  // Superstars
-  'Juan Soto', 'Vladimir Guerrero Jr.', 'Fernando Tatis Jr.', 'Manny Machado',
-  'Rafael Devers', 'José Ramírez', 'Julio Rodríguez', 'Willy Adames',
-  // Infielders
-  'Elly De La Cruz', 'Ketel Marte', 'Jeremy Peña', 'Jorge Polanco',
-  'Carlos Santana', 'Santiago Espinal', 'Geraldo Perdomo', 'Wander Franco',
-  'Jean Segura', 'Hanser Alberto', 'Jeimer Candelario', 'Luis Arraez',
-  'Nelson Cruz', 'Robinson Canó', 'Starlin Castro', 'Alcides Escobar',
-  'Eduardo Escobar', 'Maikel Garcia', 'José Iglesias', 'Amed Rosario',
-  // Outfielders
-  'Teoscar Hernández', 'Starling Marte', 'Bryan De La Cruz', 'Jesús Sánchez',
-  'Victor Robles', 'Manuel Margot', 'Oscar Gonzalez', 'Randy Arozarena',
-  'Harold Ramirez', 'Leody Taveras', 'Eloy Jiménez', 'Marcell Ozuna',
-  'Juan Lagares', 'Gregory Polanco', 'Yasiel Puig', 'Nelson Cruz',
-  // Catchers
-  'Gary Sánchez', 'Yainer Diaz', 'Francisco Mejía', 'Robinson Chirinos',
-  'Martín Maldonado', 'Pedro Severino', 'Willson Contreras', 'Sandy León',
-  // Pitchers
-  'Sandy Alcántara', 'Luis Castillo', 'Framber Valdez', 'Emmanuel Clase',
-  'Jhoan Durán', 'Freddy Peralta', 'Luis Severino', 'Camilo Doval',
-  'Cristian Javier', 'Bryan Abreu', 'Brayan Bello', 'Luis Gil',
-  'Eury Pérez', 'Frankie Montas', 'Reynaldo López', 'Ronel Blanco',
-  'Carlos Estévez', 'Génesis Cabrera', 'Wandy Peralta', 'Jimmy Cordero',
-  'Yohan Ramírez', 'Domingo Germán', 'Michael Pineda', 'Erasmo Ramírez',
-  'Ranger Suárez', 'José Ureña', 'Johnny Cueto', 'Bartolo Colón',
-  'Edwin Díaz', 'Dellin Betances', 'Hansel Robles', 'José Alvarado',
-  'Gregory Soto', 'Yimi García', 'Diego Castillo', 'Félix Bautista'
-]);
+// Fetch full player profile with season + career stats
+export async function fetchPlayerProfile(playerId) {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/people/${playerId}?hydrate=stats(group=[hitting,pitching],type=[season,career])`
+    );
+    if (!response.ok) throw new Error('Failed to fetch player profile');
+    const data = await response.json();
+    return data.people?.[0] || null;
+  } catch (error) {
+    console.error('Error fetching player profile:', error);
+    return null;
+  }
+}
 
-// Check if player is Dominican by name (fallback)
-export function isDominicanByName(playerName) {
-  return KNOWN_DOMINICAN_PLAYERS.has(playerName);
+// Get player headshot URL from MLB CDN
+export function getPlayerHeadshotUrl(playerId) {
+  return `https://img.mlb.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${playerId}/headshot/67/current`;
 }

@@ -13,7 +13,7 @@ function Header() {
         <header className="header">
             <div className="container header-content">
                 <div className="logo-section">
-                    <a href="/" className="logo" onClick={scrollToTop}>
+                    <a href="/" className="logo" onClick={scrollToTop} aria-label="Dominicanos en Grandes Ligas — Volver al inicio">
                         <div className="logo-icon-container">
                             <div className="baseball-body">
                                 <div className="stitch-curve-left"></div>
@@ -37,8 +37,8 @@ function Header() {
                 </div>
 
                 <div className="header-right">
-                    <div className="live-badge">
-                        <span className="live-dot"></span>
+                    <div className="live-badge" role="status" aria-live="polite">
+                        <span className="live-dot" aria-hidden="true"></span>
                         EN VIVO
                     </div>
                 </div>

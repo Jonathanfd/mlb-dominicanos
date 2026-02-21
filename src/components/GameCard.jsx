@@ -24,8 +24,8 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
             {/* Status Header */}
             <div className="game-status-bar">
                 {status.isLive ? (
-                    <div className="status-live">
-                        <span className="live-dot"></span>
+                    <div className="status-live" role="status" aria-live="polite">
+                        <span className="live-dot" aria-hidden="true"></span>
                         {status.text}
                     </div>
                 ) : (
@@ -33,7 +33,7 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                 )}
                 {totalDominicanPlayers > 0 && (
                     <span className="dominican-count">
-                        <span className="dr-flag"></span> {totalDominicanPlayers}
+                        <span className="dr-flag" aria-hidden="true"></span> {totalDominicanPlayers}
                     </span>
                 )}
             </div>
@@ -47,6 +47,9 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                             src={getTeamLogoUrl(awayTeam?.id)}
                             alt={awayTeam?.name}
                             className="team-logo"
+                            width="40"
+                            height="40"
+                            loading="lazy"
                             onError={(e) => e.target.style.display = 'none'}
                         />
                         <div className="team-details">
@@ -56,7 +59,7 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                             </span>
                         </div>
                     </div>
-                    <span className="team-score">{awayScore}</span>
+                    <span className="team-score" style={{ fontVariantNumeric: 'tabular-nums' }}>{awayScore}</span>
                 </div>
 
                 {/* Home Team */}
@@ -66,6 +69,9 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                             src={getTeamLogoUrl(homeTeam?.id)}
                             alt={homeTeam?.name}
                             className="team-logo"
+                            width="40"
+                            height="40"
+                            loading="lazy"
                             onError={(e) => e.target.style.display = 'none'}
                         />
                         <div className="team-details">
@@ -75,7 +81,7 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                             </span>
                         </div>
                     </div>
-                    <span className="team-score">{homeScore}</span>
+                    <span className="team-score" style={{ fontVariantNumeric: 'tabular-nums' }}>{homeScore}</span>
                 </div>
             </div>
 
@@ -120,9 +126,11 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                     <button
                         className="section-toggle"
                         onClick={() => setIsExpanded(!isExpanded)}
+                        aria-expanded={isExpanded}
+                        aria-label={isExpanded ? 'Ocultar jugadores dominicanos' : 'Ver jugadores dominicanos'}
                     >
                         {isExpanded ? 'Ocultar Dominicanos' : 'Ver Dominicanos'}
-                        <span className="toggle-icon">{isExpanded ? '▼' : '▶'}</span>
+                        <span className="toggle-icon" aria-hidden="true">{isExpanded ? '▼' : '▶'}</span>
                     </button>
 
                     {isExpanded && (

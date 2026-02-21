@@ -44,6 +44,7 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --border-subtle: 1px solid #E0E0E0;
+  --glass-border: rgba(0, 0, 0, 0.1);
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -77,6 +78,9 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--bg-primary);
+  background-image: radial-gradient(circle at 20% 50%, rgba(0, 45, 98, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(206, 17, 38, 0.02) 0%, transparent 50%);
+  background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.5;
@@ -95,6 +99,7 @@ h6 {
   color: var(--mlb-dark-blue);
   font-weight: 700;
   line-height: 1.2;
+  text-wrap: balance;
 }
 
 h1 {
@@ -161,7 +166,7 @@ a:hover {
   border-radius: 4px;
   /* Standard boxy look for sports */
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
   border: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -202,6 +207,36 @@ a:hover {
 
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Tabular numbers for scores and stats */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--mlb-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Remove default outline for mouse clicks */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Scrollbar */

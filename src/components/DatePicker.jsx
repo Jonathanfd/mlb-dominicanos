@@ -33,11 +33,15 @@ function DatePicker({ selectedDate, onDateChange }) {
         return dates;
     };
 
+    const today = new Date();
+
     const isSameDate = (d1, d2) => {
         return d1.getDate() === d2.getDate() &&
             d1.getMonth() === d2.getMonth() &&
             d1.getFullYear() === d2.getFullYear();
     };
+
+    const isToday = (d) => isSameDate(d, today);
 
     const navigateDate = (days) => {
         const newDate = new Date(selectedDate);
@@ -61,19 +65,25 @@ function DatePicker({ selectedDate, onDateChange }) {
                     ‹
                 </button>
 
-                <div className="date-list" ref={dateListRef}>
+                <div className="date-list" ref={dateListRef} role="listbox" aria-label="Seleccionar fecha">
                     {getRibbonDates().map((date, index) => (
                         <button
                             key={index}
-                            className={`date-item ${isSameDate(date, selectedDate) ? 'selected' : ''}`}
+                            className={`date-item ${isSameDate(date, selectedDate) ? 'selected' : ''} ${isToday(date) ? 'today' : ''}`}
                             onClick={() => onDateChange(date)}
+                            role="option"
+                            aria-selected={isSameDate(date, selectedDate)}
+                            aria-current={isToday(date) ? 'date' : undefined}
                         >
                             <span className="day-name">
-                                {date.toLocaleDateString('es-DO', { weekday: 'short' }).replace('.', '')}
+                                {isToday(date) ? 'HOY' : date.toLocaleDateString('es-DO', { weekday: 'short' }).replace('.', '')}
                             </span>
                             <span className="day-number">
                                 {date.getDate()}
                             </span>
+                            {isToday(date) && !isSameDate(date, selectedDate) && (
+                                <span className="today-dot"></span>
+                            )}
                         </button>
                     ))}
                 </div>
@@ -90,7 +100,8 @@ function DatePicker({ selectedDate, onDateChange }) {
                     <button
                         className="calendar-trigger"
                         onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-                        title="Seleccionar fecha"
+                        aria-label="Abrir calendario para seleccionar fecha"
+                        aria-expanded={isCalendarOpen}
                     >
                         📅
                     </button>

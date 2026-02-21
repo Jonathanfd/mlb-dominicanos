@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import GameCard from "./components/GameCard";
@@ -12,13 +12,14 @@ import {
 } from "./services/mlbApi";
 
 function App() {
-  // Default to August 15, 2025 - during MLB regular season with games
-  const [selectedDate, setSelectedDate] = useState(new Date("2025-08-15"));
+  // Default to today's date
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [games, setGames] = useState([]);
   const [gamesWithPlayers, setGamesWithPlayers] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('dominicanos');
+  const [isAutoRefreshing, setIsAutoRefreshing] = useState(false);
 
   // Fetch games for selected date
   const fetchGames = useCallback(async (isBackgroundRefresh = false) => {
@@ -68,31 +69,53 @@ function App() {
       selectedDate.getFullYear() === today.getFullYear();
 
     if (isToday) {
+      setIsAutoRefreshing(true);
       // Poll every 30 seconds if viewing today's games
       const intervalId = setInterval(() => {
         fetchGames(true); // true = background refresh (no loading state)
       }, 30000);
 
-      return () => clearInterval(intervalId);
+      return () => {
+        clearInterval(intervalId);
+        setIsAutoRefreshing(false);
+      };
+    } else {
+      setIsAutoRefreshing(false);
     }
   }, [selectedDate, fetchGames]);
 
-  // Filter games that have Dominican players
-  const gamesWithDominicanPlayers = games.filter((game) => {
-    const players = gamesWithPlayers[game.gamePk];
-    if (!players) return true; // Show while loading
-    return players.home.length > 0 || players.away.length > 0;
-  });
+  // Filter games that have Dominican players, sorted: Live → Scheduled → Final
+  const gamesWithDominicanPlayers = useMemo(() => {
+    const filtered = games.filter((game) => {
+      const players = gamesWithPlayers[game.gamePk];
+      if (!players) return true;
+      return players.home.length > 0 || players.away.length > 0;
+    });
+
+    const statusPriority = (game) => {
+      const status = game.status?.abstractGameState;
+      if (status === 'Live') return 0;
+      if (status === 'Final') return 2;
+      return 1; // Scheduled / Preview
+    };
+
+    return filtered.sort((a, b) => statusPriority(a) - statusPriority(b));
+  }, [games, gamesWithPlayers]);
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
     setGamesWithPlayers({});
   };
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="app">
       <Header />
-      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} />
 
       <main className="main-content">
         <div className="container">
@@ -115,6 +138,13 @@ function App() {
               selectedDate={selectedDate}
               onDateChange={handleDateChange}
             />
+
+            {isAutoRefreshing && (
+              <div className="auto-refresh-indicator" aria-live="polite" role="status">
+                <span className="refresh-dot" aria-hidden="true"></span>
+                Actualizando en vivo cada 30s
+              </div>
+            )}
           </div>
 
           {activeTab === 'dominicanos' ? (
@@ -143,11 +173,22 @@ function App() {
                 <div className="empty-state glass-card animate-fadeIn">
                   <div className="empty-icon">⚾</div>
                   <h3>No hay juegos con dominicanos</h3>
-                  <p>
-                    No se encontraron juegos con peloteros dominicanos para esta
-                    fecha.
-                  </p>
-                  <p className="empty-hint">Intenta seleccionar otra fecha</p>
+                  {games.length === 0 ? (
+                    <>
+                      <p>No se encontraron juegos MLB para esta fecha.</p>
+                      <p className="empty-hint">
+                        La temporada regular MLB va de finales de marzo a octubre.
+                        Selecciona una fecha durante la temporada.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        Hay {games.length} juego{games.length !== 1 ? 's' : ''} programado{games.length !== 1 ? 's' : ''}, pero ninguno tiene peloteros dominicanos.
+                      </p>
+                      <p className="empty-hint">Intenta seleccionar otra fecha</p>
+                    </>
+                  )}
                 </div>
               ) : (
                 <div className="games-grid">

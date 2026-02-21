@@ -1,12 +1,16 @@
 .game-card {
     padding: 0;
     overflow: hidden;
-    transition: all var(--transition-normal);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .game-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.game-card {
+    touch-action: manipulation;
 }
 
 /* Status Bar */
@@ -42,7 +46,7 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-sm) 0;
-    transition: all var(--transition-fast);
+    transition: background-color var(--transition-fast);
 }
 
 .team-row:first-child {
@@ -90,6 +94,7 @@
     color: var(--text-secondary);
     min-width: 50px;
     text-align: right;
+    font-variant-numeric: tabular-nums;
 }
 
 /* Line Score */
@@ -123,6 +128,7 @@
     /* Distribute space evenly */
     text-align: center;
     padding: 4px;
+    font-variant-numeric: tabular-nums;
 }
 
 /* First column - team abbreviation or empty space */
@@ -177,7 +183,7 @@
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .section-toggle:hover {

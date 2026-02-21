@@ -12,13 +12,15 @@
     border: 1px solid #eee;
     /* Light border */
     border-left-width: 3px;
-    transition: all var(--transition-fast);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .player-card:hover {
     background: #f8f9fa;
     transform: translateX(4px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
 }
 
 .player-card.not-participated {
