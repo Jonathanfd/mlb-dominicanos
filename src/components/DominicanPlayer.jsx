@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { getPlayerHeadshotUrl } from '../services/mlbApi';
 import PlayerModal from './PlayerModal';
 import './DominicanPlayer.css';
 
 function DominicanPlayer({ player, delay = 0 }) {
     const { id, name, position, jerseyNumber, batting, pitching, isPitcher, participated } = player;
     const [showModal, setShowModal] = useState(false);
+    const [imgError, setImgError] = useState(false);
 
     return (
         <>
@@ -19,7 +21,16 @@ function DominicanPlayer({ player, delay = 0 }) {
             >
                 <div className="player-main">
                     <div className="player-avatar">
-                        <span className="jersey-number">#{jerseyNumber || '00'}</span>
+                        {!imgError ? (
+                            <img
+                                src={getPlayerHeadshotUrl(id)}
+                                alt={name}
+                                className="player-card-headshot"
+                                onError={() => setImgError(true)}
+                            />
+                        ) : (
+                            <span className="jersey-number">#{jerseyNumber || '00'}</span>
+                        )}
                     </div>
                     <div className="player-info">
                         <span className="player-name">{name}</span>

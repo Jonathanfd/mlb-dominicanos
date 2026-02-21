@@ -206,5 +206,5 @@ export async function fetchPlayerProfile(playerId) {
 
 // Get player headshot URL from MLB CDN
 export function getPlayerHeadshotUrl(playerId) {
-  return `https://img.mlb.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${playerId}/headshot/67/current`;
+  return `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${playerId}/headshot/67/current`;
 }
