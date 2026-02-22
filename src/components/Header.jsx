@@ -1,6 +1,6 @@
 import './Header.css';
 
-function Header() {
+function Header({ theme, toggleTheme }) {
     const scrollToTop = (e) => {
         e.preventDefault();
         window.scrollTo({
@@ -26,6 +26,17 @@ function Header() {
                             <span className="logo-tagline">EN GRANDES LIGAS</span>
                         </div>
                     </a>
+                </div>
+
+                <div className="header-actions">
+                    <button
+                        className="theme-toggle-btn"
+                        onClick={toggleTheme}
+                        aria-label={theme === 'light' ? 'Activar modo oscuro' : 'Activar modo claro'}
+                        title={theme === 'light' ? 'Modo Oscuro' : 'Modo Claro'}
+                    >
+                        {theme === 'light' ? '🌙' : '☀️'}
+                    </button>
                 </div>
 
                 <div className="header-right">

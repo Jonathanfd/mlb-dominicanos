@@ -31,7 +31,7 @@
 .tab-btn.active {
   color: #FFFFFF;
   border-bottom-color: var(--dr-red);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .tab-icon {

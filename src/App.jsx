@@ -26,7 +26,31 @@ function App() {
   const [leaderboardYear, setLeaderboardYear] = useState(new Date().getFullYear());
   const [selectedCountry, setSelectedCountry] = useState('DR');
 
+  // Theme state: default to localStorage, fallback to system preference, then 'light'
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  });
+
   const countryConfig = COUNTRIES[selectedCountry];
+
+  // Apply theme class to document element and save to localStorage
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
 
   // Fetch games for selected date
   const fetchGames = useCallback(async (isBackgroundRefresh = false) => {
@@ -126,7 +150,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header theme={theme} toggleTheme={toggleTheme} />
       <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} country={selectedCountry} />
 
       <main className="main-content">

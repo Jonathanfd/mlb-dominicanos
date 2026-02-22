@@ -9,9 +9,8 @@
 .country-selector-track {
     display: flex;
     position: relative;
-    background: rgba(0, 45, 98, 0.06);
-    /* Soft blue-grey for light theme */
-    border: 1px solid rgba(0, 45, 98, 0.08);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
     border-radius: 100px;
     padding: 6px;
     gap: 8px;
@@ -30,8 +29,7 @@
     border-radius: 100px;
     border: 1px solid transparent;
     background: transparent;
-    color: var(--text-secondary, #666666);
-    /* Darker text for light theme */
+    color: var(--text-secondary);
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 0.95rem;
     font-weight: 700;
@@ -44,11 +42,11 @@
 
 /* Hover state for unselected */
 .country-pill:hover:not(.active) {
-    color: var(--mlb-dark-blue, #041E42);
-    background: rgba(255, 255, 255, 0.6);
-    border-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    border-color: var(--border-subtle);
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Active State - Primary Blue */

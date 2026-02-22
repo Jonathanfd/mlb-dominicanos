@@ -64,6 +64,34 @@
   --transition-normal: 0.3s ease;
 }
 
+/* Dark Mode Overrides */
+.dark {
+  --bg-primary: #0A0A0A;
+  /* Very dark background */
+  --bg-secondary: #1A1A1A;
+  /* Dark card background */
+  --bg-tertiary: #2D2D2D;
+  /* Darker borders */
+  --bg-header: #041E42;
+  /* Keep header MLB Navy, or adjust if desired */
+
+  --text-primary: #F5F5F5;
+  /* Off-white text */
+  --text-secondary: #A0A0A0;
+  /* Light gray secondary text */
+  --text-inverse: #111111;
+  /* Dark text on light backgrounds */
+  --text-link: #4da3ff;
+  /* Lighter blue for dark mode contrast */
+
+  --border-subtle: 1px solid #333333;
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -96,7 +124,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  color: var(--mlb-dark-blue);
+  color: var(--text-primary);
   font-weight: 700;
   line-height: 1.2;
   text-wrap: balance;

@@ -29,7 +29,7 @@
 
 /* Modal Card */
 .player-modal {
-    background: #ffffff;
+    background: var(--bg-secondary);
     width: 100%;
     max-width: 520px;
     max-height: 85vh;
@@ -185,10 +185,10 @@
 .stats-section-title {
     font-size: 0.9rem;
     font-weight: 700;
-    color: #002D62;
+    color: var(--text-link);
     margin: 0 0 8px;
     padding-bottom: 6px;
-    border-bottom: 2px solid #002D62;
+    border-bottom: 2px solid var(--text-link);
 }
 
 .stats-table-wrapper {
@@ -207,15 +207,15 @@
 }
 
 .stats-table thead th {
-    background: #f5f5f5;
-    color: #666;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
     font-weight: 600;
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     padding: 6px 8px;
     text-align: center;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .stats-table thead th:first-child {
@@ -226,9 +226,9 @@
 .stats-table tbody td {
     padding: 8px;
     text-align: center;
-    color: #333;
+    color: var(--text-primary);
     font-weight: 500;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .stats-table tbody td:first-child {
@@ -237,7 +237,7 @@
 
 .stats-label {
     font-weight: 700 !important;
-    color: #002D62 !important;
+    color: var(--text-link) !important;
     font-size: 0.78rem;
 }
 
@@ -247,15 +247,15 @@
 }
 
 .career-row td {
-    background: #fafafa;
-    border-top: 2px solid #e0e0e0;
+    background: var(--bg-primary);
+    border-top: 2px solid var(--border-subtle);
 }
 
 /* ========================================
    Bio Section
    ======================================== */
 .player-bio {
-    background: #f8f9fa;
+    background: var(--bg-primary);
     border-radius: 10px;
     padding: 14px 16px;
     margin-top: 4px;
@@ -266,7 +266,7 @@
     gap: 8px;
     padding: 5px 0;
     font-size: 0.85rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .bio-item:last-child {
@@ -274,7 +274,7 @@
 }
 
 .bio-label {
-    color: #888;
+    color: var(--text-secondary);
     font-weight: 600;
     min-width: 72px;
     flex-shrink: 0;
@@ -284,7 +284,7 @@
 }
 
 .bio-value {
-    color: #333;
+    color: var(--text-primary);
     font-weight: 500;
 }
 
