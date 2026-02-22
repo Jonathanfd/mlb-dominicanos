@@ -177,7 +177,7 @@ function PlayerModal({ playerId, onClose }) {
                             )}
 
                             {/* Pitching Stats */}
-                            {(seasonPitching || careerPitching) && (
+                            {(isPitcher && (seasonPitching || careerPitching)) && (
                                 <div className="stats-section">
                                     <h3 className="stats-section-title">
                                         {isPitcher ? '⚾ Estadísticas de Pitcheo' : 'Pitcheo'}
