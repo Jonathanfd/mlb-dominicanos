@@ -13,24 +13,16 @@ function Header() {
         <header className="header">
             <div className="container header-content">
                 <div className="logo-section">
-                    <a href="/" className="logo" onClick={scrollToTop} aria-label="Peloteros RD — Volver al inicio">
+                    <a href="/" className="logo" onClick={scrollToTop} aria-label="Diamante Latino — Volver al inicio">
                         <div className="logo-icon-container">
-                            <div className="baseball-body">
-                                <div className="stitch-curve-left"></div>
-                                <div className="stitch-curve-right"></div>
-                                <div className="center-flag">
-                                    <div className="flag-top-left"></div>
-                                    <div className="flag-top-right"></div>
-                                    <div className="flag-bottom-left"></div>
-                                    <div className="flag-bottom-right"></div>
-                                    <div className="flag-cross-h"></div>
-                                    <div className="flag-cross-v"></div>
-                                    <div className="flag-shield"></div>
-                                </div>
-                            </div>
+                            <img
+                                src="/diamante-latino-logo.png"
+                                alt="Diamante Latino Logo"
+                                className="brand-logo-img"
+                            />
                         </div>
                         <div className="logo-text">
-                            <span className="logo-brand">PELOTEROS RD</span>
+                            <span className="logo-brand">DIAMANTE LATINO</span>
                             <span className="logo-tagline">EN GRANDES LIGAS</span>
                         </div>
                     </a>
