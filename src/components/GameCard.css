@@ -177,8 +177,12 @@
     gap: var(--spacing-xs);
     width: 100%;
     padding: var(--spacing-sm) var(--spacing-md);
-    background: none;
+    background: transparent;
     border: none;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
     color: var(--text-primary);
     font-size: 0.9rem;
     font-weight: 600;
