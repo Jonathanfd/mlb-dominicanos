@@ -174,30 +174,38 @@
 .section-toggle {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    justify-content: center;
+    gap: 10px;
     width: 100%;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: transparent;
+    padding: 14px var(--spacing-md);
+    background: var(--mlb-blue);
+    color: white;
     border: none;
     outline: none;
     -webkit-appearance: none;
     appearance: none;
     border-radius: 0;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: background-color var(--transition-fast), color var(--transition-fast);
+    transition: background-color 0.2s ease;
 }
 
 .section-toggle:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--mlb-dark-blue);
+}
+
+.section-toggle[aria-expanded="true"] {
+    background: var(--bg-header);
+    /* Slightly darker when expanded */
 }
 
 .toggle-icon {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    transition: transform var(--transition-fast);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: transform 0.2s ease;
 }
 
 /* Players List */
