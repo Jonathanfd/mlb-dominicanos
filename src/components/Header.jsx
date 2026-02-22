@@ -37,9 +37,6 @@ function Header({ theme, toggleTheme }) {
                     >
                         {theme === 'light' ? '🌙' : '☀️'}
                     </button>
-                </div>
-
-                <div className="header-right">
                     <div className="live-badge" role="status" aria-live="polite">
                         <span className="live-dot" aria-hidden="true"></span>
                         EN VIVO
