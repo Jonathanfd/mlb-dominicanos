@@ -129,9 +129,9 @@ function App() {
                   activeTab === 'apuestas' ? 'Líneas de Apuestas' : 'Líderes de la Liga'}
               </h2>
               <p className="page-subtitle">
-                {activeTab === 'dominicanos' ? 'Sigue el rendimiento de los dominicanos en la MLB' :
+                {activeTab === 'dominicanos' ? 'Sigue el rendimiento de los peloteros dominicanos' :
                   activeTab === 'apuestas' ? 'Odds en vivo y recomendaciones de parlays' :
-                    `Top 5 dominicanos en la MLB (${leaderboardYear})`}
+                    `Top 5 peloteros dominicanos (${leaderboardYear})`}
               </p>
             </div>
 
