@@ -6,7 +6,7 @@ const BASE_URL = 'https://statsapi.mlb.com/api/v1';
 // Get schedule for a specific date with full boxscore data
 export async function getSchedule(date) {
   const formattedDate = date instanceof Date
-    ? date.toISOString().split('T')[0]
+    ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
     : date;
 
   try {
