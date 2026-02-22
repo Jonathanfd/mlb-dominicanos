@@ -16,7 +16,7 @@ function Header() {
                     <a href="/" className="logo" onClick={scrollToTop} aria-label="Diamante Latino — Volver al inicio">
                         <div className="logo-icon-container">
                             <img
-                                src="/diamante-latino-logo.png"
+                                src="/diamante-latino-logo-white.png"
                                 alt="Diamante Latino Logo"
                                 className="brand-logo-img"
                             />
