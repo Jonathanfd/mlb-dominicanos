@@ -99,10 +99,10 @@
 }
 
 .sub-tab-btn.active {
-  background: var(--mlb-blue);
-  color: white;
-  border-color: var(--mlb-blue);
-  box-shadow: 0 4px 12px rgba(0, 45, 98, 0.3);
+  background: #1565C0;
+  color: #ffffff;
+  border-color: #1565C0;
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.4);
 }
 
 .leaderboard-grid {
