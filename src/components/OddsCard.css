@@ -102,6 +102,22 @@
     color: #E65100;
 }
 
+/* Dark mode overrides for odds badges */
+.dark .odds-value {
+    background: #2A2A2A;
+    color: var(--text-primary);
+}
+
+.dark .odds-value.odds-favorite {
+    background: rgba(46, 125, 50, 0.2);
+    color: #66BB6A;
+}
+
+.dark .odds-value.odds-underdog {
+    background: rgba(230, 81, 0, 0.2);
+    color: #FFA726;
+}
+
 .odds-labels {
     display: flex;
     justify-content: space-between;
