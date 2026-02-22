@@ -120,7 +120,7 @@ function PlayerModal({ playerId, onClose }) {
                         {/* Stats Section */}
                         <div className="player-modal-body">
                             {/* Batting Stats */}
-                            {(seasonHitting || careerHitting) && (
+                            {(!isPitcher && (seasonHitting || careerHitting)) && (
                                 <div className="stats-section">
                                     <h3 className="stats-section-title">
                                         {isPitcher ? 'Bateo' : '⚾ Estadísticas de Bateo'}
