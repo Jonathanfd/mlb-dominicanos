@@ -355,13 +355,13 @@
 .player-modal-error {
     padding: 48px 24px;
     text-align: center;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .player-modal-error button {
     margin-top: 12px;
     padding: 8px 24px;
-    background: #002D62;
+    background: var(--mlb-blue);
     color: white;
     border: none;
     border-radius: 6px;

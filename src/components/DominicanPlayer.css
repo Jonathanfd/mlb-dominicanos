@@ -4,12 +4,11 @@
     justify-content: space-between;
     padding: var(--spacing-sm);
     margin-bottom: var(--spacing-xs);
-    background: white;
+    background: var(--bg-secondary);
     border-radius: var(--radius-sm);
     border-left: 3px solid var(--dr-red);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    /* Subtle shadow on light bg */
-    border: 1px solid #eee;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-subtle);
     /* Light border */
     border-left-width: 3px;
     cursor: pointer;
@@ -17,15 +16,15 @@
 }
 
 .player-card:hover {
-    background: #f8f9fa;
+    background: var(--bg-tertiary);
     transform: translateX(4px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     touch-action: manipulation;
 }
 
 .player-card.not-participated {
     opacity: 0.6;
-    background: #f9f9f9;
+    background: var(--bg-secondary);
     border-left-color: #cbd5e0;
 }
 
@@ -115,7 +114,7 @@
     font-size: 0.95rem;
     font-weight: 800;
     /* Bolder stats */
-    color: var(--mlb-dark-blue);
+    color: var(--text-primary);
     font-family: var(--font-heading);
 }
 
@@ -140,7 +139,7 @@
         justify-content: space-between;
         /* Better spacing on mobile */
         padding-top: var(--spacing-xs);
-        border-top: 1px solid #eee;
+        border-top: 1px solid var(--border-subtle);
     }
 
     .stat {

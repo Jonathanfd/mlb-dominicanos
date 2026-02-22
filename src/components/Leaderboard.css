@@ -37,7 +37,7 @@
 
 .season-select {
   appearance: none;
-  background-color: #ffffff;
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border-color, #d1d5db);
   border-radius: 8px;
   padding: 0.5rem 2.2rem 0.5rem 1rem;
@@ -48,7 +48,7 @@
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
-  /* Updated to a dark chevron to contrast with white background */
+  /* Dark chevron for light mode, overridden for dark */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.6rem center;
@@ -57,15 +57,19 @@
 
 .season-select:hover,
 .season-select:focus {
-  background-color: #f9fafb;
+  background-color: var(--bg-tertiary);
   border-color: var(--mlb-blue);
   box-shadow: 0 0 0 3px rgba(0, 45, 98, 0.1);
   outline: none;
 }
 
 .season-select option {
-  background-color: #ffffff;
-  color: #333333;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.dark .season-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23F5F5F5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 .leaderboard-tabs {
@@ -202,8 +206,8 @@
   height: 44px;
   border-radius: 50%;
   object-fit: contain;
-  background-color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-subtle);
 }
 
 .leader-info {
@@ -256,7 +260,7 @@
 .skeleton-card {
   height: 420px;
   padding: 1.5rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
+  background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-secondary) 50%, var(--bg-tertiary) 75%);
   background-size: 400% 100%;
   animation: pulse 1.5s infinite;
 }

@@ -108,7 +108,7 @@
 .skeleton-players {
   height: 120px;
   width: 100%;
-  background: #e8e8e8;
+  background: var(--bg-tertiary);
 }
 
 /* Auto-refresh indicator */
@@ -118,10 +118,10 @@
   justify-content: center;
   gap: 8px;
   padding: 6px 16px;
-  background: rgba(0, 45, 98, 0.08);
-  border: 1px solid rgba(0, 45, 98, 0.15);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
   border-radius: 20px;
-  color: var(--mlb-blue);
+  color: var(--text-secondary);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.3px;
@@ -151,13 +151,12 @@
   }
 }
 
-/* Error State */
 .error-state {
   text-align: center;
   padding: var(--spacing-xl);
   max-width: 500px;
   margin: var(--spacing-xl) auto;
-  background: white;
+  background: var(--bg-secondary);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
 }
@@ -177,13 +176,12 @@
   margin-bottom: var(--spacing-md);
 }
 
-/* Empty State */
 .empty-state {
   text-align: center;
   padding: var(--spacing-xl);
   max-width: 500px;
   margin: var(--spacing-xl) auto;
-  background: white;
+  background: var(--bg-secondary);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
 }
@@ -208,13 +206,12 @@
   color: var(--text-muted);
 }
 
-/* Footer */
 .footer {
   margin-top: auto;
   padding: var(--spacing-lg) 0;
   text-align: center;
-  background: white;
-  border-top: 1px solid var(--bg-tertiary);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .footer .flag-stripe {

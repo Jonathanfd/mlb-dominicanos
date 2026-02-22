@@ -8,12 +8,12 @@
 .date-ribbon {
     display: flex;
     align-items: center;
-    background: white;
+    background: var(--bg-secondary);
     padding: 0.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     gap: 0.5rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-subtle);
 }
 
 .date-nav-btn {
@@ -27,12 +27,12 @@
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.2rem;
-    color: var(--mlb-blue, #002D62);
+    color: var(--text-primary);
     transition: background 0.2s;
 }
 
 .date-nav-btn:hover {
-    background: #f0f0f0;
+    background: var(--bg-tertiary);
 }
 
 .date-list {
@@ -55,7 +55,7 @@
 }
 
 .date-item:hover {
-    background: #f5f5f5;
+    background: var(--bg-tertiary);
 }
 
 .date-item.selected {
@@ -96,14 +96,14 @@
 .day-name {
     font-size: 0.7rem;
     text-transform: uppercase;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 2px;
 }
 
 .day-number {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .calendar-trigger {
@@ -117,13 +117,13 @@
 }
 
 .calendar-trigger:hover {
-    background: #f0f0f0;
+    background: var(--bg-tertiary);
 }
 
 .date-input-popup {
     font-family: inherit;
-    color: #333;
-    background: white;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
 }
 
 /* Responsive */
