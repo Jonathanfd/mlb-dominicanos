@@ -148,7 +148,7 @@ function PlayerModal({ playerId, onClose }) {
                                                         <td>{seasonHitting.atBats}</td>
                                                         <td>{seasonHitting.runs}</td>
                                                         <td>{seasonHitting.hits}</td>
-                                                        <td className="stat-highlight">{seasonHitting.homeRuns}</td>
+                                                        <td>{seasonHitting.homeRuns}</td>
                                                         <td>{seasonHitting.rbi}</td>
                                                         <td>{seasonHitting.stolenBases}</td>
                                                         <td>{seasonHitting.avg}</td>
@@ -162,7 +162,7 @@ function PlayerModal({ playerId, onClose }) {
                                                         <td>{careerHitting.atBats}</td>
                                                         <td>{careerHitting.runs}</td>
                                                         <td>{careerHitting.hits}</td>
-                                                        <td className="stat-highlight">{careerHitting.homeRuns}</td>
+                                                        <td>{careerHitting.homeRuns}</td>
                                                         <td>{careerHitting.rbi}</td>
                                                         <td>{careerHitting.stolenBases}</td>
                                                         <td>{careerHitting.avg}</td>
@@ -204,7 +204,7 @@ function PlayerModal({ playerId, onClose }) {
                                                         <td className="stats-label">{currentYear}</td>
                                                         <td>{seasonPitching.wins}</td>
                                                         <td>{seasonPitching.losses}</td>
-                                                        <td className="stat-highlight">{seasonPitching.era}</td>
+                                                        <td>{seasonPitching.era}</td>
                                                         <td>{seasonPitching.gamesPlayed}</td>
                                                         <td>{seasonPitching.inningsPitched}</td>
                                                         <td>{seasonPitching.hits}</td>
@@ -218,7 +218,7 @@ function PlayerModal({ playerId, onClose }) {
                                                         <td className="stats-label">Carrera</td>
                                                         <td>{careerPitching.wins}</td>
                                                         <td>{careerPitching.losses}</td>
-                                                        <td className="stat-highlight">{careerPitching.era}</td>
+                                                        <td>{careerPitching.era}</td>
                                                         <td>{careerPitching.gamesPlayed}</td>
                                                         <td>{careerPitching.inningsPitched}</td>
                                                         <td>{careerPitching.hits}</td>
