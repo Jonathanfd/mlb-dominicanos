@@ -171,7 +171,7 @@
     background: rgba(0, 45, 98, 0.1);
 }
 
-.section-toggle {
+.gamecard-player-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -193,11 +193,11 @@
     transition: background-color 0.2s ease;
 }
 
-.section-toggle:hover {
+.gamecard-player-toggle:hover {
     background: var(--mlb-dark-blue);
 }
 
-.section-toggle[aria-expanded="true"] {
+.gamecard-player-toggle[aria-expanded="true"] {
     background: var(--bg-header);
     /* Slightly darker when expanded */
 }

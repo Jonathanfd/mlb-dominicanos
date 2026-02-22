@@ -126,7 +126,7 @@ function GameCard({ game, dominicanPlayers, country = 'DR', animationDelay = 0 }
             {totalDominicanPlayers > 0 && (
                 <div className="dominican-section">
                     <button
-                        className="section-toggle"
+                        className="gamecard-player-toggle"
                         onClick={() => setIsExpanded(!isExpanded)}
                         aria-expanded={isExpanded}
                         aria-label={isExpanded ? `Ocultar jugadores ${countryConfig.adjective}` : `Ver jugadores ${countryConfig.adjective}`}
