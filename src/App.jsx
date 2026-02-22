@@ -21,6 +21,7 @@ function App() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('dominicanos');
   const [isAutoRefreshing, setIsAutoRefreshing] = useState(false);
+  const [leaderboardYear, setLeaderboardYear] = useState(new Date().getFullYear());
 
   // Fetch games for selected date
   const fetchGames = useCallback(async (isBackgroundRefresh = false) => {
@@ -130,7 +131,7 @@ function App() {
               <p className="page-subtitle">
                 {activeTab === 'dominicanos' ? 'Sigue el rendimiento de los dominicanos en la MLB' :
                   activeTab === 'apuestas' ? 'Odds en vivo y recomendaciones de parlays' :
-                    'Top 5 dominicanos en la MLB (2025)'}
+                    `Top 5 dominicanos en la MLB (${leaderboardYear})`}
               </p>
             </div>
 
@@ -212,7 +213,7 @@ function App() {
             <BettingTab games={games} selectedDate={selectedDate} />
           ) : (
             /* Leaderboards Tab */
-            <Leaderboard />
+            <Leaderboard year={leaderboardYear} onYearChange={setLeaderboardYear} />
           )}
         </div>
       </main>

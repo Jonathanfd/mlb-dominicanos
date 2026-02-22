@@ -3,11 +3,10 @@ import { getDominicanLeaders, getPlayerHeadshotUrl, getTeamLogoUrl } from '../se
 import PlayerModal from './PlayerModal';
 import './Leaderboard.css';
 
-function Leaderboard() {
+function Leaderboard({ year, onYearChange }) {
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: currentYear - 2020 + 1 }, (_, i) => currentYear - i);
 
-    const [selectedYear, setSelectedYear] = useState(currentYear);
     const [subTab, setSubTab] = useState('hitters'); // 'hitters' or 'pitchers'
     const [leaders, setLeaders] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -18,7 +17,7 @@ function Leaderboard() {
         async function fetchLeaders() {
             try {
                 setLoading(true);
-                const data = await getDominicanLeaders(selectedYear);
+                const data = await getDominicanLeaders(year);
                 setLeaders(data);
             } catch (err) {
                 console.error('Failed to load leaders', err);
@@ -29,7 +28,7 @@ function Leaderboard() {
         }
 
         fetchLeaders();
-    }, [selectedYear]);
+    }, [year]);
 
     const isEmpty = useMemo(() => {
         if (!leaders) return true;
@@ -123,21 +122,21 @@ function Leaderboard() {
                     <select
                         id="season-select"
                         className="season-select"
-                        value={selectedYear}
-                        onChange={(e) => setSelectedYear(Number(e.target.value))}
+                        value={year}
+                        onChange={(e) => onYearChange(Number(e.target.value))}
                     >
                         {years.map(year => (
                             <option key={year} value={year}>{year}</option>
                         ))}
                     </select>
                 </div>
-                <p className="intro-text">Mostrando los líderes dominicanos de la temporada {selectedYear}.</p>
+                <p className="intro-text">Mostrando los líderes dominicanos de la temporada {year}.</p>
             </div>
 
             {isEmpty ? (
                 <div className="empty-state glass-card animate-fadeIn" style={{ maxWidth: '600px', margin: '0 auto' }}>
                     <div className="empty-icon">📅</div>
-                    <h3>Aún no hay estadísticas para {selectedYear}</h3>
+                    <h3>Aún no hay estadísticas para {year}</h3>
                     <p>La temporada regular aún no ha comenzado o no hay datos suficientes de líderes.</p>
                     <p className="empty-hint">Por favor, selecciona una temporada anterior en el menú de arriba.</p>
                 </div>
