@@ -127,12 +127,14 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} />
+      <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} country={selectedCountry} />
 
       <main className="main-content">
         <div className="container">
           {/* Country Selector */}
-          <CountrySelector selectedCountry={selectedCountry} onCountryChange={handleCountryChange} />
+          {activeTab !== 'apuestas' && (
+            <CountrySelector selectedCountry={selectedCountry} onCountryChange={handleCountryChange} />
+          )}
 
           <div className="content-header">
             <div className="title-section">
