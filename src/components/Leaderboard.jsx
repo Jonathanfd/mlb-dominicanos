@@ -1,9 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
-import { getDominicanLeaders, getPlayerHeadshotUrl, getTeamLogoUrl } from '../services/mlbApi';
+import { getLeadersByCountry, getPlayerHeadshotUrl, getTeamLogoUrl } from '../services/mlbApi';
+import COUNTRIES from '../countryConfig';
 import PlayerModal from './PlayerModal';
 import './Leaderboard.css';
 
-function Leaderboard({ year, onYearChange }) {
+function Leaderboard({ year, onYearChange, country = 'DR' }) {
+    const countryConfig = COUNTRIES[country];
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: currentYear - 2020 + 1 }, (_, i) => currentYear - i);
 
@@ -17,7 +19,7 @@ function Leaderboard({ year, onYearChange }) {
         async function fetchLeaders() {
             try {
                 setLoading(true);
-                const data = await getDominicanLeaders(year);
+                const data = await getLeadersByCountry(year, country);
                 setLeaders(data);
             } catch (err) {
                 console.error('Failed to load leaders', err);
@@ -28,7 +30,7 @@ function Leaderboard({ year, onYearChange }) {
         }
 
         fetchLeaders();
-    }, [year]);
+    }, [year, country]);
 
     const isEmpty = useMemo(() => {
         if (!leaders) return true;
@@ -130,7 +132,7 @@ function Leaderboard({ year, onYearChange }) {
                         ))}
                     </select>
                 </div>
-                <p className="intro-text">Mostrando los líderes dominicanos de la temporada {year}.</p>
+                <p className="intro-text">Mostrando los líderes {countryConfig.adjective} de la temporada {year}.</p>
             </div>
 
             {isEmpty ? (

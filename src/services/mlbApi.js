@@ -1,6 +1,8 @@
 // MLB Stats API Service
 // Direct API calls — MLB Stats API is public and CORS-friendly
 
+import COUNTRIES from '../countryConfig';
+
 const BASE_URL = 'https://statsapi.mlb.com/api/v1';
 
 // Get schedule for a specific date with full boxscore data
@@ -69,11 +71,13 @@ export async function getPlayerBirthCountry(playerId) {
   return null;
 }
 
-// Filter Dominican players from boxscore
-export function extractDominicanPlayers(boxscore) {
+// Filter players from boxscore by country
+export function extractPlayersByCountry(boxscore, countryCode = 'DR') {
   if (!boxscore) return { home: [], away: [] };
 
-  const dominicanPlayers = { home: [], away: [] };
+  const countryConfig = COUNTRIES[countryCode] || COUNTRIES.DR;
+  const validCountries = countryConfig.birthCountries;
+  const filteredPlayers = { home: [], away: [] };
 
   // Process both teams
   ['home', 'away'].forEach(team => {
@@ -90,13 +94,10 @@ export function extractDominicanPlayers(boxscore) {
       const position = player.position || {};
       const playerName = person.fullName || '';
 
-      // Check if player is Dominican by birthCountry from MLB API
-      const isDominican =
-        person.birthCountry === 'Dominican Republic' ||
-        person.birthCountry === 'D.R.' ||
-        person.birthCountry === 'Republica Dominicana';
+      // Check if player matches the selected country
+      const isFromCountry = validCountries.includes(person.birthCountry);
 
-      if (isDominican) {
+      if (isFromCountry) {
         const battingStats = stats.batting || {};
         const pitchingStats = stats.pitching || {};
 
@@ -109,7 +110,7 @@ export function extractDominicanPlayers(boxscore) {
         const participated = batters.has(playerId) || pitchers.has(playerId) ||
           hasBattingParticipation || hasPitchingParticipation;
 
-        dominicanPlayers[team].push({
+        filteredPlayers[team].push({
           id: person.id,
           name: playerName,
           position: position.abbreviation || 'N/A',
@@ -141,13 +142,18 @@ export function extractDominicanPlayers(boxscore) {
     });
 
     // Sort: participated players first
-    dominicanPlayers[team].sort((a, b) => {
+    filteredPlayers[team].sort((a, b) => {
       if (a.participated === b.participated) return 0;
       return a.participated ? -1 : 1;
     });
   });
 
-  return dominicanPlayers;
+  return filteredPlayers;
+}
+
+// Backward-compatible wrapper
+export function extractDominicanPlayers(boxscore) {
+  return extractPlayersByCountry(boxscore, 'DR');
 }
 
 // Get team logo URL
@@ -209,13 +215,16 @@ export function getPlayerHeadshotUrl(playerId) {
   return `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${playerId}/headshot/67/current`;
 }
 
-// Fetch Dominican leaders across different categories
-export async function getDominicanLeaders(season = 2025) {
+// Fetch leaders by country across different categories
+export async function getLeadersByCountry(season = 2026, countryCode = 'DR') {
   try {
+    const countryConfig = COUNTRIES[countryCode] || COUNTRIES.DR;
+    const validCountries = countryConfig.birthCountries;
+
     const hittingCategories = 'homeRuns,runsBattedIn,battingAverage,onBasePlusSlugging,hits,doubles,triples,stolenBases,onBasePercentage,sluggingPercentage,runs';
     const pitchingCategories = 'earnedRunAverage,strikeOuts,saves,whip,wins,strikeoutsPer9Inn,inningsPitched,gamesPlayed,walks,walksPer9Inn';
 
-    // We request a large limit (100) to ensure we get enough Dominicans after filtering
+    // We request a large limit (100) to ensure we get enough players after filtering
     const [hittingRes, pitchingRes] = await Promise.all([
       fetch(`${BASE_URL}/stats/leaders?leaderCategories=${hittingCategories}&statGroup=hitting&limit=100&season=${season}&hydrate=person`),
       fetch(`${BASE_URL}/stats/leaders?leaderCategories=${pitchingCategories}&statGroup=pitching&limit=100&season=${season}&hydrate=person`)
@@ -231,14 +240,14 @@ export async function getDominicanLeaders(season = 2025) {
     const processCategory = (categoryData) => {
       if (!categoryData || !categoryData.leaders) return [];
 
-      // Filter only Dominican players
-      const dominicans = categoryData.leaders.filter(leader => {
+      // Filter only players from the selected country
+      const filtered = categoryData.leaders.filter(leader => {
         const country = leader.person?.birthCountry;
-        return country === 'Dominican Republic' || country === 'D.R.' || country === 'Republica Dominicana';
+        return validCountries.includes(country);
       });
 
       // Map to a clean object and return top 5
-      return dominicans.slice(0, 5).map(leader => ({
+      return filtered.slice(0, 5).map(leader => ({
         id: leader.person.id,
         name: leader.person.fullName,
         teamName: leader.team.name,
@@ -264,7 +273,12 @@ export async function getDominicanLeaders(season = 2025) {
 
     return leaders;
   } catch (error) {
-    console.error('Error fetching dominican leaders:', error);
+    console.error('Error fetching leaders:', error);
     return null;
   }
+}
+
+// Backward-compatible wrapper
+export async function getDominicanLeaders(season = 2026) {
+  return getLeadersByCountry(season, 'DR');
 }

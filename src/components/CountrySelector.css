@@ -1,0 +1,52 @@
+.country-selector {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+
+.country-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.country-pill:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.country-pill.active {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(139, 92, 246, 0.3));
+    border-color: rgba(139, 92, 246, 0.5);
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.2);
+}
+
+.country-flag {
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+.country-name {
+    letter-spacing: 0.02em;
+}
+
+@media (max-width: 480px) {
+    .country-pill {
+        padding: 7px 14px;
+        font-size: 0.82rem;
+    }
+}

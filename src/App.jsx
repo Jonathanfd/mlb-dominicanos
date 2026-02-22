@@ -6,10 +6,12 @@ import DatePicker from "./components/DatePicker";
 import TabNavigation from "./components/TabNavigation";
 import BettingTab from "./components/BettingTab";
 import Leaderboard from "./components/Leaderboard";
+import CountrySelector from "./components/CountrySelector";
+import COUNTRIES from "./countryConfig";
 import {
   getSchedule,
   getBoxScore,
-  extractDominicanPlayers,
+  extractPlayersByCountry,
 } from "./services/mlbApi";
 
 function App() {
@@ -22,6 +24,9 @@ function App() {
   const [activeTab, setActiveTab] = useState('dominicanos');
   const [isAutoRefreshing, setIsAutoRefreshing] = useState(false);
   const [leaderboardYear, setLeaderboardYear] = useState(new Date().getFullYear());
+  const [selectedCountry, setSelectedCountry] = useState('DR');
+
+  const countryConfig = COUNTRIES[selectedCountry];
 
   // Fetch games for selected date
   const fetchGames = useCallback(async (isBackgroundRefresh = false) => {
@@ -35,8 +40,8 @@ function App() {
       // Fetch boxscores for all games in parallel
       const boxscorePromises = scheduleData.map(async (game) => {
         const boxscore = await getBoxScore(game.gamePk);
-        const dominicanPlayers = extractDominicanPlayers(boxscore);
-        return { gamePk: game.gamePk, players: dominicanPlayers };
+        const players = extractPlayersByCountry(boxscore, selectedCountry);
+        return { gamePk: game.gamePk, players };
       });
 
       const boxscores = await Promise.all(boxscorePromises);
@@ -55,9 +60,9 @@ function App() {
     } finally {
       if (!isBackgroundRefresh) setLoading(false);
     }
-  }, [selectedDate]);
+  }, [selectedDate, selectedCountry]);
 
-  // Initial fetch when date changes
+  // Initial fetch when date or country changes
   useEffect(() => {
     fetchGames();
   }, [fetchGames]);
@@ -86,8 +91,8 @@ function App() {
     }
   }, [selectedDate, fetchGames]);
 
-  // Filter games that have Dominican players, sorted: Live → Scheduled → Final
-  const gamesWithDominicanPlayers = useMemo(() => {
+  // Filter games that have players from selected country, sorted: Live → Scheduled → Final
+  const gamesWithCountryPlayers = useMemo(() => {
     const filtered = games.filter((game) => {
       const players = gamesWithPlayers[game.gamePk];
       if (!players) return true;
@@ -114,6 +119,11 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleCountryChange = (code) => {
+    setSelectedCountry(code);
+    setGamesWithPlayers({});
+  };
+
   return (
     <div className="app">
       <Header />
@@ -121,17 +131,20 @@ function App() {
 
       <main className="main-content">
         <div className="container">
+          {/* Country Selector */}
+          <CountrySelector selectedCountry={selectedCountry} onCountryChange={handleCountryChange} />
+
           <div className="content-header">
             <div className="title-section">
               <h2 className="page-title">
-                {activeTab === 'dominicanos' && <span className="dr-flag"></span>}
-                {activeTab === 'dominicanos' ? 'Peloteros Dominicanos' :
+                {activeTab === 'dominicanos' && <span className="country-title-flag">{countryConfig.flag}</span>}
+                {activeTab === 'dominicanos' ? `Peloteros ${countryConfig.demonym}` :
                   activeTab === 'apuestas' ? 'Líneas de Apuestas' : 'Líderes de la Liga'}
               </h2>
               <p className="page-subtitle">
-                {activeTab === 'dominicanos' ? 'Sigue el rendimiento de los peloteros dominicanos' :
+                {activeTab === 'dominicanos' ? `Sigue el rendimiento de los peloteros ${countryConfig.adjective}` :
                   activeTab === 'apuestas' ? 'Odds en vivo y recomendaciones de parlays' :
-                    `Top 5 peloteros dominicanos (${leaderboardYear})`}
+                    `Top 5 peloteros ${countryConfig.adjective} (${leaderboardYear})`}
               </p>
             </div>
 
@@ -151,7 +164,7 @@ function App() {
           </div>
 
           {activeTab === 'dominicanos' ? (
-            /* Dominican Players Tab */
+            /* Players Tab */
             <>
               {loading ? (
                 <div className="games-grid">
@@ -172,10 +185,10 @@ function App() {
                     Reintentar
                   </button>
                 </div>
-              ) : gamesWithDominicanPlayers.length === 0 ? (
+              ) : gamesWithCountryPlayers.length === 0 ? (
                 <div className="empty-state glass-card animate-fadeIn">
                   <div className="empty-icon">⚾</div>
-                  <h3>No hay juegos con dominicanos</h3>
+                  <h3>No hay juegos con {countryConfig.adjective}</h3>
                   {games.length === 0 ? (
                     <>
                       <p>No se encontraron juegos MLB para esta fecha.</p>
@@ -187,7 +200,7 @@ function App() {
                   ) : (
                     <>
                       <p>
-                        Hay {games.length} juego{games.length !== 1 ? 's' : ''} programado{games.length !== 1 ? 's' : ''}, pero ninguno tiene peloteros dominicanos.
+                        Hay {games.length} juego{games.length !== 1 ? 's' : ''} programado{games.length !== 1 ? 's' : ''}, pero ninguno tiene peloteros {countryConfig.adjective}.
                       </p>
                       <p className="empty-hint">Intenta seleccionar otra fecha</p>
                     </>
@@ -195,13 +208,14 @@ function App() {
                 </div>
               ) : (
                 <div className="games-grid">
-                  {gamesWithDominicanPlayers.map((game, index) => (
+                  {gamesWithCountryPlayers.map((game, index) => (
                     <GameCard
                       key={game.gamePk}
                       game={game}
                       dominicanPlayers={
                         gamesWithPlayers[game.gamePk] || { home: [], away: [] }
                       }
+                      country={selectedCountry}
                       animationDelay={index * 0.1}
                     />
                   ))}
@@ -213,7 +227,7 @@ function App() {
             <BettingTab games={games} selectedDate={selectedDate} />
           ) : (
             /* Leaderboards Tab */
-            <Leaderboard year={leaderboardYear} onYearChange={setLeaderboardYear} />
+            <Leaderboard year={leaderboardYear} onYearChange={setLeaderboardYear} country={selectedCountry} />
           )}
         </div>
       </main>
@@ -223,7 +237,7 @@ function App() {
           <div className="flag-stripe"></div>
           <p>Datos proporcionados por MLB Stats API</p>
           <p className="footer-note">
-            🇩🇴 Orgullo Dominicano en las Grandes Ligas
+            {countryConfig.flag} Orgullo {countryConfig.noun} en las Grandes Ligas
           </p>
         </div>
       </footer>

@@ -2,9 +2,11 @@ import { useState } from 'react';
 import './GameCard.css';
 import DominicanPlayer from './DominicanPlayer';
 import { getTeamLogoUrl, formatGameStatus } from '../services/mlbApi';
+import COUNTRIES from '../countryConfig';
 
-function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
+function GameCard({ game, dominicanPlayers, country = 'DR', animationDelay = 0 }) {
     const [isExpanded, setIsExpanded] = useState(false);
+    const countryConfig = COUNTRIES[country];
 
     const homeTeam = game.teams?.home?.team;
     const awayTeam = game.teams?.away?.team;
@@ -33,7 +35,7 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                 )}
                 {totalDominicanPlayers > 0 && (
                     <span className="dominican-count">
-                        <span className="dr-flag" aria-hidden="true"></span> {totalDominicanPlayers}
+                        <span aria-hidden="true">{countryConfig.flag}</span> {totalDominicanPlayers}
                     </span>
                 )}
             </div>
@@ -127,9 +129,9 @@ function GameCard({ game, dominicanPlayers, animationDelay = 0 }) {
                         className="section-toggle"
                         onClick={() => setIsExpanded(!isExpanded)}
                         aria-expanded={isExpanded}
-                        aria-label={isExpanded ? 'Ocultar jugadores dominicanos' : 'Ver jugadores dominicanos'}
+                        aria-label={isExpanded ? `Ocultar jugadores ${countryConfig.adjective}` : `Ver jugadores ${countryConfig.adjective}`}
                     >
-                        {isExpanded ? 'Ocultar Dominicanos' : 'Ver Dominicanos'}
+                        {isExpanded ? `Ocultar ${countryConfig.demonym}` : `Ver ${countryConfig.demonym}`}
                         <span className="toggle-icon" aria-hidden="true">{isExpanded ? '▼' : '▶'}</span>
                     </button>
 
