@@ -8,7 +8,14 @@ function TabNavigation({ activeTab, onTabChange }) {
                 onClick={() => onTabChange('dominicanos')}
             >
                 <span className="tab-icon">🇩🇴</span>
-                <span className="tab-label">Dominicanos</span>
+                <span className="tab-label">Juegos</span>
+            </button>
+            <button
+                className={`tab-btn ${activeTab === 'leaderboard' ? 'active' : ''}`}
+                onClick={() => onTabChange('leaderboard')}
+            >
+                <span className="tab-icon">🏆</span>
+                <span className="tab-label">Líderes</span>
             </button>
             <button
                 className={`tab-btn ${activeTab === 'apuestas' ? 'active' : ''}`}

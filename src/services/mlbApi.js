@@ -208,3 +208,63 @@ export async function fetchPlayerProfile(playerId) {
 export function getPlayerHeadshotUrl(playerId) {
   return `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${playerId}/headshot/67/current`;
 }
+
+// Fetch Dominican leaders across different categories
+export async function getDominicanLeaders(season = 2025) {
+  try {
+    const hittingCategories = 'homeRuns,runsBattedIn,battingAverage,onBasePlusSlugging,hits,doubles,triples,stolenBases,onBasePercentage,sluggingPercentage,runs';
+    const pitchingCategories = 'earnedRunAverage,strikeOuts,saves,whip,wins,strikeoutsPer9Inn,inningsPitched,gamesPlayed,walks,walksPer9Inn';
+
+    // We request a large limit (100) to ensure we get enough Dominicans after filtering
+    const [hittingRes, pitchingRes] = await Promise.all([
+      fetch(`${BASE_URL}/stats/leaders?leaderCategories=${hittingCategories}&statGroup=hitting&limit=100&season=${season}&hydrate=person`),
+      fetch(`${BASE_URL}/stats/leaders?leaderCategories=${pitchingCategories}&statGroup=pitching&limit=100&season=${season}&hydrate=person`)
+    ]);
+
+    if (!hittingRes.ok || !pitchingRes.ok) throw new Error('Failed to fetch leaders');
+
+    const [hittingData, pitchingData] = await Promise.all([
+      hittingRes.json(),
+      pitchingRes.json()
+    ]);
+
+    const processCategory = (categoryData) => {
+      if (!categoryData || !categoryData.leaders) return [];
+
+      // Filter only Dominican players
+      const dominicans = categoryData.leaders.filter(leader => {
+        const country = leader.person?.birthCountry;
+        return country === 'Dominican Republic' || country === 'D.R.' || country === 'Republica Dominicana';
+      });
+
+      // Map to a clean object and return top 5
+      return dominicans.slice(0, 5).map(leader => ({
+        id: leader.person.id,
+        name: leader.person.fullName,
+        teamName: leader.team.name,
+        value: leader.value,
+        rank: leader.rank
+      }));
+    };
+
+    const leaders = {
+      hitting: {},
+      pitching: {}
+    };
+
+    // Process hitting categories
+    hittingData.leagueLeaders?.forEach(category => {
+      leaders.hitting[category.leaderCategory] = processCategory(category);
+    });
+
+    // Process pitching categories
+    pitchingData.leagueLeaders?.forEach(category => {
+      leaders.pitching[category.leaderCategory] = processCategory(category);
+    });
+
+    return leaders;
+  } catch (error) {
+    console.error('Error fetching dominican leaders:', error);
+    return null;
+  }
+}

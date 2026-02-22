@@ -5,6 +5,7 @@ import GameCard from "./components/GameCard";
 import DatePicker from "./components/DatePicker";
 import TabNavigation from "./components/TabNavigation";
 import BettingTab from "./components/BettingTab";
+import Leaderboard from "./components/Leaderboard";
 import {
   getSchedule,
   getBoxScore,
@@ -122,24 +123,25 @@ function App() {
           <div className="content-header">
             <div className="title-section">
               <h2 className="page-title">
-                <span className="dr-flag"></span>
-                {activeTab === 'dominicanos'
-                  ? 'Peloteros Dominicanos'
-                  : 'Líneas de Apuestas'}
+                {activeTab === 'dominicanos' && <span className="dr-flag"></span>}
+                {activeTab === 'dominicanos' ? 'Peloteros Dominicanos' :
+                  activeTab === 'apuestas' ? 'Líneas de Apuestas' : 'Líderes de la Liga'}
               </h2>
               <p className="page-subtitle">
-                {activeTab === 'dominicanos'
-                  ? 'Sigue el rendimiento de los dominicanos en la MLB'
-                  : 'Odds en vivo y recomendaciones de parlays'}
+                {activeTab === 'dominicanos' ? 'Sigue el rendimiento de los dominicanos en la MLB' :
+                  activeTab === 'apuestas' ? 'Odds en vivo y recomendaciones de parlays' :
+                    'Top 5 dominicanos en la MLB (2025)'}
               </p>
             </div>
 
-            <DatePicker
-              selectedDate={selectedDate}
-              onDateChange={handleDateChange}
-            />
+            {activeTab !== 'leaderboard' && (
+              <DatePicker
+                selectedDate={selectedDate}
+                onDateChange={handleDateChange}
+              />
+            )}
 
-            {isAutoRefreshing && (
+            {(isAutoRefreshing && activeTab === 'dominicanos') && (
               <div className="auto-refresh-indicator" aria-live="polite" role="status">
                 <span className="refresh-dot" aria-hidden="true"></span>
                 Actualizando en vivo cada 30s
@@ -205,9 +207,12 @@ function App() {
                 </div>
               )}
             </>
-          ) : (
+          ) : activeTab === 'apuestas' ? (
             /* Betting Tab */
             <BettingTab games={games} selectedDate={selectedDate} />
+          ) : (
+            /* Leaderboards Tab */
+            <Leaderboard />
           )}
         </div>
       </main>
