@@ -91,6 +91,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
 }
 
 .theme-toggle-btn {
@@ -114,65 +115,85 @@
     transform: scale(1.05);
 }
 
-/* Header Right - Live Badge */
-.header-right {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.live-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background: var(--mlb-red);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(206, 17, 38, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.live-dot {
-    width: 8px;
-    height: 8px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 0 8px white;
-    animation: pulse 1.5s infinite;
-}
-
-/* Responsive */
+/* Responsive — Tablet */
 @media (max-width: 768px) {
     .header {
         height: 60px;
     }
 
-    .logo-brand {
-        font-size: 1.1rem;
+    .header-content {
+        padding: 0 16px;
     }
 
-    .logo-tagline {
-        font-size: 0.55rem;
-        letter-spacing: 1.5px;
+    .logo {
+        gap: 12px;
     }
 
     .logo-icon-container {
-        width: 50px;
-        height: 50px;
+        width: 46px;
+        height: 46px;
+        border-radius: 10px;
     }
 
-    .live-badge {
-        padding: 4px 8px;
-        font-size: 0.7rem;
+    .logo-text {
+        padding-left: 12px;
+    }
+
+    .logo-brand {
+        font-size: 1.05rem;
+    }
+
+    .logo-tagline {
+        font-size: 0.5rem;
+        letter-spacing: 1.5px;
+    }
+
+    .theme-toggle-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* Responsive — Small Mobile */
+@media (max-width: 480px) {
+    .header {
+        height: 54px;
     }
 
     .header-content {
-        padding: 0 var(--spacing-sm);
-        /* Reduce padding */
+        padding: 0 12px;
+    }
+
+    .logo {
+        gap: 10px;
+    }
+
+    .logo-icon-container {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+    }
+
+    .logo-text {
+        padding-left: 10px;
+        border-left-width: 1px;
+    }
+
+    .logo-brand {
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+
+    .logo-tagline {
+        font-size: 0.45rem;
+        letter-spacing: 1px;
+        margin-top: 2px;
+    }
+
+    .theme-toggle-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
     }
 }
