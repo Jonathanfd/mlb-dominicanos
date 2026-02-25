@@ -137,7 +137,7 @@
 
 .category-badge {
   background: rgba(43, 82, 255, 0.2);
-  color: var(--dr-blue);
+  color: var(--dr-white);
   padding: 0.3rem 0.6rem;
   border-radius: 12px;
   font-size: 0.75rem;

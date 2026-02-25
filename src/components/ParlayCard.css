@@ -32,7 +32,7 @@
     align-items: center;
     padding: 16px 20px;
     background: var(--bg-header);
-    color: var(--text-inverse);
+    color: #ffffff;
 }
 
 .parlay-type {
@@ -51,6 +51,7 @@
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
+    color: #ffffff;
 }
 
 .parlay-payout {
